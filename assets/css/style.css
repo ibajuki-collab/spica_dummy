@@ -484,3 +484,194 @@ a {
     border: 0;
 }
 
+.network-map img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* =========================================
+   NETWORK PAGE
+========================================= */
+
+.network-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 45px;
+    align-items: center;
+}
+
+
+/* BOX GAMBAR */
+
+.network-map-box {
+    width: 100%;
+    padding: 14px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(7, 26, 45, 0.08);
+}
+
+
+/* GAMBAR */
+
+.network-map {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid #dfe7ef;
+    background: #f8fbfd;
+}
+
+
+.network-map img {
+    display: block;
+    width: 100%;
+    height: 430px;
+    object-fit: cover;
+}
+
+
+/* BAGIAN TEKS */
+
+.network-content {
+    width: 100%;
+}
+
+
+.network-content h2 {
+    font-size: 36px;
+    line-height: 1.2;
+    margin: 10px 0 18px;
+}
+
+
+.network-content > p {
+    color: var(--muted);
+    margin-bottom: 25px;
+}
+
+
+/* COUNTRY CARDS */
+
+.network-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+
+.network-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px;
+    min-height: 115px;
+    box-shadow: 0 8px 25px rgba(7, 26, 45, 0.05);
+    transition: all 0.25s ease;
+}
+
+
+.network-card:hover {
+    transform: translateY(-3px);
+    border-color: #b9dff5;
+    box-shadow: 0 12px 30px rgba(7, 26, 45, 0.09);
+}
+
+
+.network-card h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: var(--text);
+}
+
+
+.network-card h3 span {
+    font-size: 12px;
+    font-weight: 800;
+    margin-right: 5px;
+    color: #0b5ed7;
+}
+
+
+.network-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   RESPONSIVE NETWORK
+========================================= */
+
+@media (max-width: 800px) {
+
+    .network-layout {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .network-map img {
+        height: 350px;
+    }
+
+    .network-content h2 {
+        font-size: 30px;
+    }
+
+    .network-cards {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .network-map-box {
+        padding: 8px;
+    }
+
+    .network-map img {
+        height: 260px;
+    }
+
+}
+
+/* =========================================
+   INDEX NETWORK PREVIEW
+========================================= */
+
+.index-network-map {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #fff;
+}
+
+
+.index-network-map img {
+    display: block;
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+}
+
+
+.index-map-label {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    padding: 10px 14px;
+    background: rgba(7, 26, 45, 0.9);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}

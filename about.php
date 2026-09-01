@@ -1,133 +1,324 @@
+<?php
+
+require "config/database.php";
+
+$stmt = $pdo->query("
+    SELECT *
+    FROM company_overview
+    ORDER BY id ASC
+    LIMIT 1
+");
+
+$company = $stmt->fetch();
+
+if (!$company) {
+    die("Data company_overview tidak ditemukan.");
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+
+    <meta charset="UTF-8">
+
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1"
+        content="width=device-width, initial-scale=1.0"
     >
 
-    <title>About — Spica Indonesia</title>
+    <title>
+        About — <?= htmlspecialchars($company["company_name"]) ?>
+    </title>
 
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
+
+    <style>
+
+        .company-overview {
+            margin-top: 30px;
+        }
+
+        .company-description {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #64748b;
+            max-width: 850px;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .company-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .company-card h3 {
+            margin-top: 0;
+            color: #0b2a4a;
+        }
+
+        .company-card p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .company-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .detail-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .detail-box strong {
+            display: block;
+            color: #0b2a4a;
+            margin-bottom: 7px;
+        }
+
+        .detail-box span {
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 900px) {
+
+            .company-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .company-grid,
+            .company-details {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-    <nav class="navbar">
+<nav class="navbar">
 
-        <div class="container nav-inner">
+    <div class="container nav-inner">
 
-            <a class="logo" href="index.php">
-                SPICA<span>INDONESIA</span>
+        <a
+            class="logo"
+            href="index.php"
+        >
+            SPICA<span>INDONESIA</span>
+        </a>
+
+        <button class="menu">
+            ☰
+        </button>
+
+        <button
+            id="darkModeToggle"
+            class="dark-mode-toggle"
+            type="button"
+        >
+            🌙
+        </button>
+
+        <div class="nav-links">
+
+            <a href="index.php">
+                Home
             </a>
 
-            <button class="menu">
-                ☰
-            </button>
+            <a
+                class="active"
+                href="about.php"
+            >
+                About
+            </a>
 
-            <div class="nav-links">
+            <a href="services.php">
+                Services
+            </a>
 
-                <a href="index.php">
-                    Home
-                </a>
+            <a href="network.php">
+                Network
+            </a>
 
-                <a class="active" href="about.php">
-                    About
-                </a>
+            <a href="news.php">
+                Updates
+            </a>
 
-                <a href="services.php">
-                    Services
-                </a>
-
-                <a href="network.php">
-                    Network
-                </a>
-
-                <a href="news.php">
-                    Updates
-                </a>
-
-                <a href="contact.php">
-                    Contact
-                </a>
-
-            </div>
+            <a href="contact.php">
+                Contact
+            </a>
 
         </div>
 
-    </nav>
+    </div>
 
-    <header class="page-hero">
+</nav>
 
-        <div class="container">
+<header class="page-hero">
 
-            <h1>
-                About Spica Indonesia
-            </h1>
+    <div class="container">
 
-            <p>
-                Dummy corporate profile page for a PPLG project.
+        <h1>
+            About <?= htmlspecialchars($company["company_name"]) ?>
+        </h1>
+
+        <p>
+            Company overview and information.
+        </p>
+
+    </div>
+
+</header>
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            COMPANY OVERVIEW
+        </div>
+
+        <h2>
+            <?= htmlspecialchars($company["company_name"]) ?>
+        </h2>
+
+        <div class="company-overview">
+
+            <p class="company-description">
+                <?= nl2br(
+                    htmlspecialchars($company["description"])
+                ) ?>
             </p>
 
-        </div>
+            <div class="company-grid">
 
-    </header>
+                <div class="company-card">
 
-    <section class="section">
+                    <h3>
+                        Our Vision
+                    </h3>
 
-        <div class="container split">
+                    <p>
+                        <?= nl2br(
+                            htmlspecialchars($company["vision"])
+                        ) ?>
+                    </p>
 
-            <div>
-
-                <div class="eyebrow">
-                    About
                 </div>
 
-                <h2>
-                    Local maritime knowledge with regional reach.
-                </h2>
+                <div class="company-card">
 
-                <p>
-                    This page is a fictional/dummy presentation layer inspired by the public information available on Spica Services. It is not intended to represent official company wording.
-                </p>
+                    <h3>
+                        Our Mission
+                    </h3>
 
-                <p>
-                    The design focuses on clarity: who the company is, what services it offers, where it operates, and how visitors can make contact.
-                </p>
+                    <p>
+                        <?= nl2br(
+                            htmlspecialchars($company["mission"])
+                        ) ?>
+                    </p>
+
+                </div>
 
             </div>
 
-            <div class="panel">
+            <div class="company-details">
 
-                <h3>
-                    Project note
-                </h3>
+                <div class="detail-box">
 
-                <p>
-                    Replace this content with approved company information if the website is ever demonstrated to the real company.
-                </p>
+                    <strong>
+                        Founded
+                    </strong>
+
+                    <span>
+                        <?= htmlspecialchars($company["founded"]) ?>
+                    </span>
+
+                </div>
+
+                <div class="detail-box">
+
+                    <strong>
+                        Location
+                    </strong>
+
+                    <span>
+                        <?= htmlspecialchars($company["location"]) ?>
+                    </span>
+
+                </div>
+
+                <div class="detail-box">
+
+                    <strong>
+                        Email
+                    </strong>
+
+                    <span>
+                        <?= htmlspecialchars($company["email"]) ?>
+                    </span>
+
+                </div>
+
+                <div class="detail-box">
+
+                    <strong>
+                        Phone
+                    </strong>
+
+                    <span>
+                        <?= htmlspecialchars($company["phone"]) ?>
+                    </span>
+
+                </div>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
 
-    <footer class="footer">
+</section>
 
-        <div class="container">
+<footer class="footer">
 
-            <p>
-                ©️ 2026 Dummy Spica Indonesia Project
-            </p>
+    <div class="container">
 
-        </div>
+        <p>
+            ©️ 2026 Dummy Spica Indonesia Project
+        </p>
 
-    </footer>
+    </div>
 
-    <script src="assets/js/app.js"></script>
+</footer>
+
+<script src="assets/js/app.js"></script>
 
 </body>
 

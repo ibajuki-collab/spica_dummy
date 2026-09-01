@@ -65,6 +65,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ☰
             </button>
 
+            <button id="darkModeToggle" class="dark-mode-toggle" type="button">
+                        🌙
+            </button>
+
             <div class="nav-links">
 
                 <a href="index.php">

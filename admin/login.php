@@ -25,6 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $admin &&
         password_verify($p, $admin["password"])
     ) {
+
+    session_regenerate_id(true);
+
         $_SESSION["admin_logged_in"] = true;
         $_SESSION["admin_username"] = $admin["username"];
 
@@ -54,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="card">
 
-            <h2>Admin Demo</h2>
+            <h2>Admin</h2>
 
             <p>
                 Login untuk melihat pesan dan data website.
@@ -83,10 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </button>
 
             </form>
-
-            <p style="font-size:13px;color:#6b7785">
-                Demo: admin / admin123
-            </p>
 
         </div>
 

@@ -21,6 +21,10 @@
 
             <button class="menu">☰</button>
 
+            <button id="darkModeToggle" class="dark-mode-toggle" type="button">
+                        🌙
+            </button>
+
             <div class="nav-links">
                 <a class="active" href="index.php">Home</a>
                 <a href="about.php">About</a>
@@ -67,8 +71,6 @@
 
             </div>
 
-
-            <!-- HERO IMAGE / VISUAL -->
             <div class="hero-card">
 
                 <div class="hero-visual">
@@ -90,8 +92,6 @@
 
     </header>
 
-
-    <!-- INTRO -->
     <section class="section">
 
         <div class="container split">
@@ -162,8 +162,6 @@
 
     </section>
 
-
-    <!-- SERVICES -->
     <section class="section section-light">
 
         <div class="container">
@@ -255,8 +253,6 @@
 
     </section>
 
-
-    <!-- NETWORK -->
     <section class="section">
 
         <div class="container split">
@@ -330,8 +326,6 @@
 
     </section>
 
-
-    <!-- WHY SPICA -->
     <section class="section section-light">
 
         <div class="container">
@@ -394,8 +388,6 @@
 
     </section>
 
-
-    <!-- CTA -->
     <section class="section cta-section">
 
         <div class="container">
@@ -433,8 +425,6 @@
 
     </section>
 
-
-    <!-- FOOTER -->
     <footer class="footer">
 
         <div class="container">

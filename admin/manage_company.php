@@ -357,7 +357,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <textarea
                         name="mission"
                         required
-                    ><?= htmlspecialchars($company["mission"]) ?></textarea>
+                    ><?= htmlspecialchars($company["mission"]) ?></textarea> 
 
                 </div>
 

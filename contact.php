@@ -33,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $error = "Please complete all fields with a valid email.";
     }
 }
-
 ?>
 
 <!doctype html>
@@ -41,14 +40,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <head>
     <meta charset="utf-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Contact — Spica Indonesia</title>
 
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        .contact-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition:
+                opacity 0.9s ease,
+                transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .contact-animate.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .contact-animate {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -66,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </button>
 
             <button id="darkModeToggle" class="dark-mode-toggle" type="button">
-                        🌙
+                🌙
             </button>
 
             <div class="nav-links">
@@ -101,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     </nav>
 
-    <header class="page-hero">
+    <header class="page-hero contact-animate">
 
         <div class="container">
 
@@ -121,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="container split">
 
-            <div>
+            <div class="contact-animate">
 
                 <div class="eyebrow">
                     Indonesia Office
@@ -135,21 +154,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     RPX Center Building, Jakarta Selatan — use the official website for real contact information.
                 </p>
 
-                <div class="map">
-    <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.8738372477615!2d106.77178560000002!3d-6.280312299999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f1abfc48ff55%3A0xa01eb29572c2f170!2sRPX%20One%20Stop%20Logistics!5e0!3m2!1sid!2sid!4v1786678548887!5m2!1sid!2sid"
-        width="600"
-        height="450"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="strict-origin-when-cross-origin">
-    </iframe>
-</div>
+                <div
+                    class="map contact-animate"
+                    style="transition-delay: 0.15s;"
+                >
+
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.8738372477615!2d106.77178560000002!3d-6.280312299999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f1abfc48ff55%3A0xa01eb29572c2f170!2sRPX%20One%20Stop%20Logistics!5e0!3m2!1sid!2sid!4v1786678548887!5m2!1sid!2sid"
+                        width="600"
+                        height="450"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin">
+                    </iframe>
+
+                </div>
 
             </div>
 
-            <div>
+            <div
+                class="contact-animate"
+                style="transition-delay: 0.25s;"
+            >
 
                 <div class="card">
 
@@ -175,7 +202,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 Name
                             </label>
 
-                            <input name="name" required>
+                            <input
+                                name="name"
+                                required
+                            >
 
                         </div>
 
@@ -199,7 +229,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 Subject
                             </label>
 
-                            <input name="subject" required>
+                            <input
+                                name="subject"
+                                required
+                            >
 
                         </div>
 
@@ -233,7 +266,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     </section>
 
-    <footer class="footer">
+    <footer class="footer contact-animate">
 
         <div class="container">
 
@@ -246,6 +279,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </footer>
 
     <script src="assets/js/app.js"></script>
+
+    <script>
+        const contactAnimations = document.querySelectorAll(".contact-animate");
+
+        const contactObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                        contactObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+        contactAnimations.forEach((element) => {
+            contactObserver.observe(element);
+        });
+    </script>
 
 </body>
 

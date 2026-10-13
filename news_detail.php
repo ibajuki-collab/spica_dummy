@@ -24,10 +24,13 @@ if (!$article) {
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title><?= htmlspecialchars($article["title"]) ?> — Spica Indonesia</title>
+
     <link rel="stylesheet" href="assets/css/style.css">
 
     <style>
@@ -163,11 +166,49 @@ if (!$article) {
             font-weight: 800;
         }
 
+        .article-animate {
+            opacity: 0;
+            transform: translateY(45px);
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+        .article-animate.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .article-image.article-animate,
+        .article-cover.article-animate {
+            transition-delay: 0.1s;
+        }
+
+        .article-body > .article-date {
+            transition-delay: 0.15s;
+        }
+
+        .article-body > h1 {
+            transition-delay: 0.25s;
+        }
+
+        .article-body > .article-excerpt {
+            transition-delay: 0.35s;
+        }
+
+        .article-body > .article-content {
+            transition-delay: 0.45s;
+        }
+
+        .article-body > .article-tag {
+            transition-delay: 0.55s;
+        }
+
         body.dark .article-card,
         body.dark-mode .article-card {
             background: #111c31;
             border-color: #263958;
-            box-shadow: 0 15px 45px rgba(0,0,0,.20);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, .20);
         }
 
         body.dark .back-news,
@@ -241,6 +282,14 @@ if (!$article) {
                 font-size: 15px;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .article-animate {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
     </style>
 </head>
 
@@ -248,13 +297,22 @@ if (!$article) {
 
 <nav class="navbar">
     <div class="container nav-inner">
+
         <a class="logo" href="index.php">
             SPICA<span>INDONESIA</span>
         </a>
 
-        <button class="menu">☰</button>
+        <button class="menu" type="button">
+            ☰
+        </button>
 
-        <button id="darkModeToggle" class="dark-mode-toggle" type="button">🌙</button>
+        <button
+            id="darkModeToggle"
+            class="dark-mode-toggle"
+            type="button"
+        >
+            🌙
+        </button>
 
         <div class="nav-links">
             <a href="index.php">Home</a>
@@ -264,47 +322,65 @@ if (!$article) {
             <a class="active" href="news.php">Updates</a>
             <a href="contact.php">Contact</a>
         </div>
+
     </div>
 </nav>
 
 <main class="article-page">
+
     <div class="article-container">
 
-        <a href="news.php" class="back-news">← Back to Updates</a>
+        <a href="news.php" class="back-news article-animate">
+            ← Back to Updates
+        </a>
 
         <article class="article-card">
 
             <?php if (!empty($article["image"])): ?>
-                <div class="article-image">
+
+                <div class="article-image article-animate">
                     <img
                         src="uploads/news/<?= htmlspecialchars($article["image"]) ?>"
                         alt="<?= htmlspecialchars($article["title"]) ?>"
                     >
                 </div>
+
             <?php else: ?>
-                <div class="article-cover">
+
+                <div class="article-cover article-animate">
+
                     <div class="article-cover-content">
                         <span>SPICA INDONESIA</span>
                         <strong>MARITIME</strong>
                     </div>
-                    <div class="article-anchor">⚓</div>
+
+                    <div class="article-anchor">
+                        ⚓
+                    </div>
+
                 </div>
+
             <?php endif; ?>
 
             <div class="article-body">
 
-                <div class="article-date">
+                <div class="article-date article-animate">
                     📅 <?= date("d M Y", strtotime($article["published_at"])) ?>
                 </div>
 
-                <h1><?= htmlspecialchars($article["title"]) ?></h1>
+                <h1 class="article-animate">
+                    <?= htmlspecialchars($article["title"]) ?>
+                </h1>
 
-                <div class="article-excerpt">
+                <div class="article-excerpt article-animate">
                     <?= htmlspecialchars($article["excerpt"]) ?>
                 </div>
 
-                <div class="article-content">
-                    <p><?= nl2br(htmlspecialchars($article["excerpt"])) ?></p>
+                <div class="article-content article-animate">
+
+                    <p>
+                        <?= nl2br(htmlspecialchars($article["excerpt"])) ?>
+                    </p>
 
                     <p>
                         This article is part of the
@@ -320,15 +396,19 @@ if (!$article) {
                         when the website is ready for
                         production use.
                     </p>
+
                 </div>
 
-                <span class="article-tag">MARITIME UPDATE</span>
+                <span class="article-tag article-animate">
+                    MARITIME UPDATE
+                </span>
 
             </div>
 
         </article>
 
     </div>
+
 </main>
 
 <footer class="footer">
@@ -338,6 +418,28 @@ if (!$article) {
 </footer>
 
 <script src="assets/js/app.js"></script>
+
+<script>
+    const articleAnimatedElements = document.querySelectorAll(".article-animate");
+
+    const articleObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    articleObserver.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            threshold: 0.12
+        }
+    );
+
+    articleAnimatedElements.forEach((element) => {
+        articleObserver.observe(element);
+    });
+</script>
 
 </body>
 </html>

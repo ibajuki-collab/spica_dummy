@@ -71,7 +71,10 @@
             padding: 20px;
             min-height: 115px;
             box-shadow: 0 8px 25px rgba(7, 26, 45, 0.05);
-            transition: 0.25s ease;
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                opacity 0.8s ease;
         }
 
         .network-card:hover {
@@ -98,6 +101,19 @@
             color: #6b7785;
             font-size: 14px;
             line-height: 1.5;
+        }
+
+        .network-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+        .network-animate.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         body.dark-mode .network-map-box,
@@ -228,7 +244,7 @@
         </div>
     </nav>
 
-    <header class="page-hero">
+    <header class="page-hero network-animate">
         <div class="container">
 
             <h1>
@@ -246,20 +262,16 @@
 
         <div class="container network-wrapper">
 
-            <div class="network-map-box">
-
+            <div class="network-map-box network-animate">
                 <div class="network-map">
-
                     <img
                         src="assets/images/network-map.png.jpeg"
                         alt="Southeast Asia Network Map"
                     >
-
                 </div>
-
             </div>
 
-            <div class="network-text">
+            <div class="network-text network-animate">
 
                 <div class="eyebrow">
                     Regional Presence
@@ -276,8 +288,10 @@
 
                 <div class="network-cards">
 
-                    <div class="network-card">
-
+                    <div
+                        class="network-card network-animate"
+                        style="transition-delay: 0.1s;"
+                    >
                         <h3>
                             <span>SG</span>
                             Singapore
@@ -286,11 +300,12 @@
                         <p>
                             Regional headquarters concept.
                         </p>
-
                     </div>
 
-                    <div class="network-card">
-
+                    <div
+                        class="network-card network-animate"
+                        style="transition-delay: 0.2s;"
+                    >
                         <h3>
                             <span>ID</span>
                             Indonesia
@@ -299,11 +314,12 @@
                         <p>
                             Jakarta office concept.
                         </p>
-
                     </div>
 
-                    <div class="network-card">
-
+                    <div
+                        class="network-card network-animate"
+                        style="transition-delay: 0.3s;"
+                    >
                         <h3>
                             <span>MY</span>
                             Malaysia
@@ -312,11 +328,12 @@
                         <p>
                             Regional office concept.
                         </p>
-
                     </div>
 
-                    <div class="network-card">
-
+                    <div
+                        class="network-card network-animate"
+                        style="transition-delay: 0.4s;"
+                    >
                         <h3>
                             <span>VN</span>
                             Vietnam
@@ -325,11 +342,12 @@
                         <p>
                             Regional office concept.
                         </p>
-
                     </div>
 
-                    <div class="network-card">
-
+                    <div
+                        class="network-card network-animate"
+                        style="transition-delay: 0.5s;"
+                    >
                         <h3>
                             <span>TH</span>
                             Thailand
@@ -338,11 +356,12 @@
                         <p>
                             Regional office concept.
                         </p>
-
                     </div>
 
-                    <div class="network-card">
-
+                    <div
+                        class="network-card network-animate"
+                        style="transition-delay: 0.6s;"
+                    >
                         <h3>
                             <span>MM</span>
                             Myanmar
@@ -351,7 +370,6 @@
                         <p>
                             Regional office concept.
                         </p>
-
                     </div>
 
                 </div>
@@ -375,6 +393,28 @@
     </footer>
 
     <script src="assets/js/app.js"></script>
+
+    <script>
+        const networkAnimatedElements = document.querySelectorAll(".network-animate");
+
+        const networkObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                        networkObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+        networkAnimatedElements.forEach((element) => {
+            networkObserver.observe(element);
+        });
+    </script>
 
 </body>
 

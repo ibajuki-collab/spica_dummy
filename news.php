@@ -48,6 +48,36 @@ if ($search !== "") {
         rel="stylesheet"
         href="assets/css/style.css"
     >
+
+    <style>
+        .news-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+        .news-animate.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .professional-news-card {
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .news-search.news-animate {
+            transition-delay: 0.1s;
+        }
+
+        .news-result-info.news-animate {
+            transition-delay: 0.2s;
+        }
+    </style>
 </head>
 
 <body>
@@ -62,7 +92,10 @@ if ($search !== "") {
             SPICA<span>INDONESIA</span>
         </a>
 
-        <button class="menu">
+        <button
+            class="menu"
+            type="button"
+        >
             ☰
         </button>
 
@@ -75,6 +108,7 @@ if ($search !== "") {
         </button>
 
         <div class="nav-links">
+
             <a href="index.php">
                 Home
             </a>
@@ -101,38 +135,33 @@ if ($search !== "") {
             <a href="contact.php">
                 Contact
             </a>
+
         </div>
 
     </div>
 </nav>
 
-<header class="news-hero">
+<header class="news-hero news-animate">
     <div class="container">
 
-        <div class="news-hero-content">
+        <h1>
+            Maritime Updates
+        </h1>
 
-            <span class="news-label">
-                SPICA INDONESIA
-            </span>
-
-            <h1>
-                Maritime Updates
-            </h1>
-
-            <p>
-                Stay informed with the latest maritime
-                news, insights and regional updates.
-            </p>
-
-        </div>
+        <p>
+            Stay informed with the latest maritime
+            news, insights and regional updates.
+        </p>
 
     </div>
 </header>
 
 <section class="section news-page">
+
     <div class="container">
 
-        <div class="news-heading">
+        <div class="news-heading news-animate">
+
             <div>
 
                 <span class="eyebrow">
@@ -149,12 +178,13 @@ if ($search !== "") {
                 </p>
 
             </div>
+
         </div>
 
         <form
             method="GET"
             action="news.php"
-            class="news-search"
+            class="news-search news-animate"
         >
 
             <div class="search-input-wrapper">
@@ -192,7 +222,7 @@ if ($search !== "") {
 
         </form>
 
-        <div class="news-result-info">
+        <div class="news-result-info news-animate">
 
             <?php if ($search !== ""): ?>
 
@@ -225,9 +255,12 @@ if ($search !== "") {
 
             <div class="professional-news-grid">
 
-                <?php foreach ($news as $n): ?>
+                <?php foreach ($news as $index => $n): ?>
 
-                    <article class="professional-news-card">
+                    <article
+                        class="professional-news-card news-animate"
+                        style="transition-delay: <?= 0.1 + ($index * 0.12) ?>s;"
+                    >
 
                         <div class="professional-news-cover">
 
@@ -313,7 +346,7 @@ if ($search !== "") {
 
         <?php else: ?>
 
-            <div class="news-empty">
+            <div class="news-empty news-animate">
 
                 <div class="empty-icon">
                     🔎
@@ -340,9 +373,11 @@ if ($search !== "") {
         <?php endif; ?>
 
     </div>
+
 </section>
 
-<footer class="footer">
+<footer class="footer news-animate">
+
     <div class="container">
 
         <p>
@@ -350,9 +385,32 @@ if ($search !== "") {
         </p>
 
     </div>
+
 </footer>
 
 <script src="assets/js/app.js"></script>
+
+<script>
+    const newsAnimatedElements = document.querySelectorAll(".news-animate");
+
+    const newsObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    newsObserver.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            threshold: 0.12
+        }
+    );
+
+    newsAnimatedElements.forEach((element) => {
+        newsObserver.observe(element);
+    });
+</script>
 
 </body>
 

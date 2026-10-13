@@ -22,7 +22,7 @@
             <button class="menu">☰</button>
 
             <button id="darkModeToggle" class="dark-mode-toggle" type="button">
-                        🌙
+                🌙
             </button>
 
             <div class="nav-links">
@@ -41,7 +41,7 @@
 
         <div class="container hero-grid">
 
-            <div>
+            <div class="reveal">
 
                 <div class="eyebrow">
                     Maritime Claims &amp; Consultancy
@@ -71,12 +71,13 @@
 
             </div>
 
-            <div class="hero-card">
+
+            <div class="hero-card reveal">
 
                 <div class="hero-visual">
 
                     <div class="ship-icon">
-                        
+
                     </div>
 
                     <div class="hero-visual-text">
@@ -96,7 +97,7 @@
 
         <div class="container split">
 
-            <div>
+            <div class="reveal">
 
                 <div class="eyebrow">
                     About Spica
@@ -126,7 +127,7 @@
             </div>
 
 
-            <div class="panel">
+            <div class="panel reveal">
 
                 <h3>
                     Regional Maritime Support
@@ -139,17 +140,17 @@
 
                 <div class="mini-stats">
 
-                    <div>
+                    <div class="reveal reveal-delay-1">
                         <strong>SEA</strong>
                         <span>Regional Network</span>
                     </div>
 
-                    <div>
+                    <div class="reveal reveal-delay-2">
                         <strong>ID</strong>
                         <span>Indonesia Office</span>
                     </div>
 
-                    <div>
+                    <div class="reveal reveal-delay-3">
                         <strong>24/7</strong>
                         <span>Professional Support</span>
                     </div>
@@ -166,23 +167,27 @@
 
         <div class="container">
 
-            <div class="eyebrow">
-                What We Do
+            <div class="reveal">
+
+                <div class="eyebrow">
+                    What We Do
+                </div>
+
+                <h2>
+                    Our Services
+                </h2>
+
+                <p class="section-intro">
+                    Professional services supporting maritime,
+                    logistics and related business activities.
+                </p>
+
             </div>
-
-            <h2>
-                Our Services
-            </h2>
-
-            <p class="section-intro">
-                Professional services supporting maritime,
-                logistics and related business activities.
-            </p>
 
 
             <div class="cards">
 
-                <div class="card">
+                <div class="card reveal reveal-delay-1">
 
                     <div class="card-icon">
                         ⚓
@@ -204,7 +209,7 @@
                 </div>
 
 
-                <div class="card">
+                <div class="card reveal reveal-delay-2">
 
                     <div class="card-icon">
                         📋
@@ -226,7 +231,7 @@
                 </div>
 
 
-                <div class="card">
+                <div class="card reveal reveal-delay-3">
 
                     <div class="card-icon">
                         🌏
@@ -257,9 +262,10 @@
 
         <div class="container split">
 
-            <div class="panel network-preview">
+            <div class="panel network-preview reveal">
 
                 <div class="network-map-placeholder">
+
                     <div class="map-title">
                         🌐 SOUTHEAST ASIA
                     </div>
@@ -267,12 +273,13 @@
                     <div class="map-subtitle">
                         Regional Network
                     </div>
+
                 </div>
 
             </div>
 
 
-            <div>
+            <div class="reveal">
 
                 <div class="eyebrow">
                     Regional Network
@@ -290,33 +297,33 @@
 
                 <div class="country-list">
 
-                    <div>
+                    <div class="reveal reveal-delay-1">
                         🇸🇬 <strong>Singapore</strong>
                     </div>
 
-                    <div>
+                    <div class="reveal reveal-delay-2">
                         🇮🇩 <strong>Indonesia</strong>
                     </div>
 
-                    <div>
+                    <div class="reveal reveal-delay-3">
                         🇲🇾 <strong>Malaysia</strong>
                     </div>
 
-                    <div>
+                    <div class="reveal reveal-delay-1">
                         🇻🇳 <strong>Vietnam</strong>
                     </div>
 
-                    <div>
+                    <div class="reveal reveal-delay-2">
                         🇹🇭 <strong>Thailand</strong>
                     </div>
 
-                    <div>
+                    <div class="reveal reveal-delay-3">
                         🇲🇲 <strong>Myanmar</strong>
                     </div>
 
                 </div>
 
-                <a class="btn btn-primary" href="network.php">
+                <a class="btn btn-primary reveal" href="network.php">
                     View Network
                 </a>
 
@@ -330,18 +337,22 @@
 
         <div class="container">
 
-            <div class="eyebrow">
-                Why Spica
-            </div>
+            <div class="reveal">
 
-            <h2>
-                Professional. Regional. Reliable.
-            </h2>
+                <div class="eyebrow">
+                    Why Spica
+                </div>
+
+                <h2>
+                    Professional. Regional. Reliable.
+                </h2>
+
+            </div>
 
 
             <div class="cards">
 
-                <div class="card">
+                <div class="card reveal reveal-delay-1">
 
                     <h3>
                         Local Expertise
@@ -355,7 +366,7 @@
                 </div>
 
 
-                <div class="card">
+                <div class="card reveal reveal-delay-2">
 
                     <h3>
                         Regional Perspective
@@ -369,7 +380,7 @@
                 </div>
 
 
-                <div class="card">
+                <div class="card reveal reveal-delay-3">
 
                     <h3>
                         Clear Communication
@@ -392,7 +403,7 @@
 
         <div class="container">
 
-            <div class="cta">
+            <div class="cta reveal">
 
                 <div>
 
@@ -413,7 +424,7 @@
 
                 <div>
 
-                    <a class="btn btn-primary" href="contact.php">
+                    <a class="btn btn-primary reveal" href="contact.php">
                         Contact Us
                     </a>
 
@@ -431,7 +442,7 @@
 
             <div class="footer-grid">
 
-                <div>
+                <div class="reveal">
 
                     <div class="logo">
                         SPICA<span>INDONESIA</span>
@@ -445,7 +456,7 @@
                 </div>
 
 
-                <div>
+                <div class="reveal reveal-delay-1">
 
                     <h4>
                         Navigation
@@ -459,7 +470,7 @@
                 </div>
 
 
-                <div>
+                <div class="reveal reveal-delay-2">
 
                     <h4>
                         Contact
@@ -478,7 +489,7 @@
             </div>
 
 
-            <p class="footer-bottom">
+            <p class="footer-bottom reveal">
                 ©️ 2026 Dummy Spica Indonesia Project
             </p>
 

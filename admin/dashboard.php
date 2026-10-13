@@ -4,6 +4,7 @@ require "../config/database.php";
 require "../config/auth.php";
 
 require_login();
+
 $newsCount = $pdo->query(
     "SELECT COUNT(*) FROM news"
 )->fetchColumn();
@@ -44,9 +45,32 @@ $messages = $pdo->query(
 
     <style>
 
+        :root {
+            --admin-bg: #f4f7fb;
+            --admin-card: #ffffff;
+            --admin-text: #0b2a4a;
+            --admin-muted: #64748b;
+            --admin-border: #e1e8f0;
+            --admin-hover: #f8fafc;
+            --admin-primary: #0b5ed7;
+        }
+
+        html[data-theme="dark"] {
+            --admin-bg: #101923;
+            --admin-card: #182532;
+            --admin-text: #f1f5f9;
+            --admin-muted: #9aa9ba;
+            --admin-border: #2b3a49;
+            --admin-hover: #202f3d;
+            --admin-primary: #55a9ff;
+        }
+
         .admin-body {
-            background: #f4f7fb;
-            color: #0b2a4a;
+            background: var(--admin-bg) !important;
+            color: var(--admin-text) !important;
+            transition:
+                background .25s ease,
+                color .25s ease;
         }
 
         .admin-nav {
@@ -72,6 +96,21 @@ $messages = $pdo->query(
             font-size: 14px;
         }
 
+        .admin-theme-button {
+            border: 1px solid rgba(255, 255, 255, .3);
+            background: transparent;
+            color: #fff;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: .2s ease;
+        }
+
+        .admin-theme-button:hover {
+            background: rgba(255, 255, 255, .1);
+        }
 
         .admin-wrap {
             max-width: 1180px;
@@ -82,14 +121,13 @@ $messages = $pdo->query(
         .admin-wrap h1 {
             margin: 0 0 8px;
             font-size: 38px;
-            color: #0b2a4a;
+            color: var(--admin-text) !important;
         }
 
         .admin-subtitle {
             margin: 0 0 35px;
-            color: #64748b;
+            color: var(--admin-muted) !important;
         }
-
 
         .admin-stats {
             display: grid;
@@ -99,8 +137,8 @@ $messages = $pdo->query(
         }
 
         .admin-stat {
-            background: #ffffff;
-            border: 1px solid #e1e8f0;
+            background: var(--admin-card) !important;
+            border: 1px solid var(--admin-border) !important;
             border-radius: 16px;
             padding: 25px;
             box-shadow: 0 8px 25px rgba(7, 26, 45, .06);
@@ -121,16 +159,15 @@ $messages = $pdo->query(
             display: block;
             font-size: 32px;
             font-weight: 800;
-            color: #0b5ed7;
+            color: var(--admin-primary) !important;
             margin-bottom: 5px;
         }
 
         .admin-stat-label {
-            color: #64748b;
+            color: var(--admin-muted) !important;
             font-size: 14px;
             font-weight: 600;
         }
-
 
         .admin-section {
             margin-top: 35px;
@@ -146,14 +183,13 @@ $messages = $pdo->query(
         .admin-section-header h2 {
             margin: 0;
             font-size: 24px;
-            color: #0b2a4a;
+            color: var(--admin-text) !important;
         }
 
         .admin-section-header span {
             font-size: 13px;
-            color: #64748b;
+            color: var(--admin-muted) !important;
         }
-
 
         .quick-actions {
             display: grid;
@@ -165,30 +201,38 @@ $messages = $pdo->query(
             display: flex;
             align-items: center;
             gap: 14px;
+
             padding: 20px;
-            background: #ffffff;
-            border: 1px solid #e1e8f0;
+
+            background: var(--admin-card) !important;
+            border: 1px solid var(--admin-border) !important;
             border-radius: 14px;
+
             text-decoration: none;
-            color: #0b2a4a;
+            color: var(--admin-text) !important;
+
             box-shadow: 0 7px 22px rgba(7, 26, 45, .05);
+
             transition: .25s ease;
         }
 
         .quick-action:hover {
             transform: translateY(-3px);
-            border-color: #0b5ed7;
+            border-color: var(--admin-primary) !important;
             box-shadow: 0 12px 28px rgba(7, 26, 45, .09);
         }
 
         .quick-icon {
             width: 42px;
             height: 42px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #eef5ff;
+
+            background: rgba(11, 94, 215, .10);
             border-radius: 10px;
+
             font-size: 20px;
             flex-shrink: 0;
         }
@@ -197,31 +241,31 @@ $messages = $pdo->query(
             display: block;
             font-size: 14px;
             margin-bottom: 4px;
+            color: var(--admin-text) !important;
         }
 
         .quick-action small {
-            color: #64748b;
+            color: var(--admin-muted) !important;
             font-size: 12px;
         }
 
-
         .messages-box {
-            background: #ffffff;
-            border: 1px solid #e1e8f0;
+            background: var(--admin-card) !important;
+            border: 1px solid var(--admin-border) !important;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(7, 26, 45, .06);
         }
 
-
         .admin-table {
             width: 100%;
             border-collapse: collapse;
+            background: var(--admin-card) !important;
         }
 
         .admin-table th {
-            background: #071a2d;
-            color: #ffffff;
+            background: #071a2d !important;
+            color: #ffffff !important;
             text-align: left;
             padding: 16px;
             font-size: 13px;
@@ -229,50 +273,105 @@ $messages = $pdo->query(
 
         .admin-table td {
             padding: 17px 16px;
-            border-bottom: 1px solid #edf1f5;
+
+            border-bottom: 1px solid var(--admin-border) !important;
+
             font-size: 13px;
-            color: #334155;
+
+            color: var(--admin-text) !important;
+
+            background: var(--admin-card) !important;
+        }
+
+        .admin-table tr {
+            background: var(--admin-card) !important;
         }
 
         .admin-table tr:last-child td {
-            border-bottom: none;
+            border-bottom: none !important;
         }
 
-        .admin-table tbody tr:hover {
-            background: #f8fafc;
+        .admin-table tbody tr:hover td {
+            background: var(--admin-hover) !important;
         }
 
         .message-name {
             font-weight: 800;
-            color: #0b2a4a;
+            color: var(--admin-text) !important;
         }
 
         .message-email {
-            color: #0b5ed7;
+            color: var(--admin-primary) !important;
         }
 
         .message-subject {
             font-weight: 600;
+            color: var(--admin-text) !important;
         }
-
-
-        .view-all {
-            display: inline-block;
-            margin-top: 18px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-            color: #0b5ed7;
-        }
-
-
 
         .empty-message {
             padding: 40px;
             text-align: center;
-            color: #64748b;
+            color: var(--admin-muted) !important;
+            background: var(--admin-card) !important;
         }
 
+        html[data-theme="dark"] .admin-body {
+            background: #101923 !important;
+            color: #f1f5f9 !important;
+        }
+
+        html[data-theme="dark"] .admin-stat {
+            background: #182532 !important;
+            border-color: #2b3a49 !important;
+        }
+
+        html[data-theme="dark"] .quick-action {
+            background: #182532 !important;
+            border-color: #2b3a49 !important;
+            color: #f1f5f9 !important;
+        }
+
+        html[data-theme="dark"] .quick-action strong {
+            color: #f1f5f9 !important;
+        }
+
+        html[data-theme="dark"] .messages-box {
+            background: #182532 !important;
+            border-color: #2b3a49 !important;
+        }
+
+        html[data-theme="dark"] .admin-table {
+            background: #182532 !important;
+        }
+
+        html[data-theme="dark"] .admin-table tbody tr {
+            background: #182532 !important;
+        }
+
+        html[data-theme="dark"] .admin-table td {
+            background: #182532 !important;
+            color: #f1f5f9 !important;
+            border-bottom-color: #2b3a49 !important;
+        }
+
+        html[data-theme="dark"] .admin-table tbody tr:hover td {
+            background: #202f3d !important;
+        }
+
+        html[data-theme="dark"] .message-name,
+        html[data-theme="dark"] .message-subject {
+            color: #f1f5f9 !important;
+        }
+
+        html[data-theme="dark"] .message-email {
+            color: #55a9ff !important;
+        }
+
+        html[data-theme="dark"] .empty-message {
+            background: #182532 !important;
+            color: #9aa9ba !important;
+        }
 
         @media (max-width: 900px) {
 
@@ -328,7 +427,6 @@ $messages = $pdo->query(
 <body class="admin-body">
 
 
-
 <div class="admin-nav">
 
     <div class="container">
@@ -337,16 +435,36 @@ $messages = $pdo->query(
             SPICA ADMIN DEMO
         </b>
 
-        <a
-            href="logout.php"
-            style="color:#fff"
+
+        <div
+            style="
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            "
         >
-            Logout
-        </a>
+
+            <button
+                type="button"
+                class="admin-theme-button"
+            >
+                🌙 Dark Mode
+            </button>
+
+
+            <a
+                href="logout.php"
+                style="color:#fff"
+            >
+                Logout
+            </a>
+
+        </div>
 
     </div>
 
 </div>
+
 
 <main class="admin-wrap">
 
@@ -354,6 +472,7 @@ $messages = $pdo->query(
     <h1>
         Dashboard
     </h1>
+
 
     <p class="admin-subtitle">
         Welcome back. Manage your Spica Indonesia website from here.
@@ -435,6 +554,7 @@ $messages = $pdo->query(
 
 
     <section class="admin-section">
+
 
         <div class="admin-section-header">
 
@@ -552,7 +672,7 @@ $messages = $pdo->query(
 
     </section>
 
- 
+
     <section class="admin-section">
 
 
@@ -609,7 +729,6 @@ $messages = $pdo->query(
 
                         <tr>
 
-
                             <td>
 
                                 <span class="message-name">
@@ -658,7 +777,6 @@ $messages = $pdo->query(
 
                             </td>
 
-
                         </tr>
 
                     <?php endforeach; ?>
@@ -688,23 +806,76 @@ $messages = $pdo->query(
 
         </div>
 
-
-        <?php if (!empty($messages)): ?>
-
-            <a
-                href="manage_messages.php"
-                class="view-all"
-            >
-                View all messages →
-            </a>
-
-        <?php endif; ?>
-
-
     </section>
 
 
 </main>
+
+
+<script>
+
+    const themeButton =
+        document.querySelector(".admin-theme-button");
+
+
+    function applyTheme(theme) {
+
+        document.documentElement.setAttribute(
+            "data-theme",
+            theme
+        );
+
+
+        if (theme === "dark") {
+
+            themeButton.textContent =
+                "☀️ Light Mode";
+
+        } else {
+
+            themeButton.textContent =
+                "🌙 Dark Mode";
+
+        }
+
+    }
+
+
+    const savedTheme =
+        localStorage.getItem("spicaAdminTheme") || "light";
+
+
+    applyTheme(savedTheme);
+
+
+    themeButton.addEventListener(
+        "click",
+        function () {
+
+            const currentTheme =
+                document.documentElement.getAttribute(
+                    "data-theme"
+                );
+
+
+            const newTheme =
+                currentTheme === "dark"
+                    ? "light"
+                    : "dark";
+
+
+            localStorage.setItem(
+                "spicaAdminTheme",
+                newTheme
+            );
+
+
+            applyTheme(newTheme);
+
+        }
+    );
+
+</script>
 
 
 </body>

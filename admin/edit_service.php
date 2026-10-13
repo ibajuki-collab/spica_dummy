@@ -104,8 +104,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <style>
 
-        body {
-            background: #f4f7fb;
+        :root {
+            --admin-bg: #f4f7fb;
+            --admin-card: #ffffff;
+            --admin-text: #172033;
+            --admin-heading: #0b2a4a;
+            --admin-muted: #64748b;
+            --admin-border: #dbe3ec;
+            --admin-input: #ffffff;
+            --admin-shadow: rgba(0, 0, 0, .05);
+        }
+
+        html[data-theme="dark"] {
+            --admin-bg: #101923;
+            --admin-card: #182532;
+            --admin-text: #f1f5f9;
+            --admin-heading: #f1f5f9;
+            --admin-muted: #9aa9ba;
+            --admin-border: #2b3a49;
+            --admin-input: #111d28;
+            --admin-shadow: rgba(0, 0, 0, .25);
+        }
+
+        body.admin-body {
+            background: var(--admin-bg);
+            color: var(--admin-text);
+            transition: background .2s ease, color .2s ease;
         }
 
         .admin-nav {
@@ -128,26 +152,40 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             text-decoration: none;
         }
 
+        .admin-theme-button {
+            border: 1px solid rgba(255, 255, 255, .25);
+            background: rgba(255, 255, 255, .08);
+            color: white;
+            padding: 8px 13px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .admin-theme-button:hover {
+            background: rgba(255, 255, 255, .15);
+        }
+
         .edit-page {
             width: min(800px, 92%);
             margin: 50px auto 80px;
         }
 
         .edit-card {
-            background: #fff;
+            background: var(--admin-card);
             padding: 35px;
             border-radius: 16px;
-            border: 1px solid #e1e7ee;
-            box-shadow: 0 10px 30px rgba(0,0,0,.05);
+            border: 1px solid var(--admin-border);
+            box-shadow: 0 10px 30px var(--admin-shadow);
         }
 
         .edit-card h1 {
             margin: 0 0 8px;
-            color: #0b2a4a;
+            color: var(--admin-heading);
         }
 
         .subtitle {
-            color: #64748b;
+            color: var(--admin-muted);
             margin-bottom: 30px;
         }
 
@@ -159,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             display: block;
             margin-bottom: 8px;
             font-weight: 700;
-            color: #334155;
+            color: var(--admin-text);
         }
 
         .form-group input,
@@ -167,10 +205,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             width: 100%;
             box-sizing: border-box;
             padding: 14px;
-            border: 1px solid #cbd5e1;
+            border: 1px solid var(--admin-border);
             border-radius: 9px;
             font-family: inherit;
             font-size: 15px;
+            background: var(--admin-input);
+            color: var(--admin-text);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--admin-muted);
         }
 
         .form-group textarea {
@@ -197,12 +242,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             margin-bottom: 20px;
         }
 
+        html[data-theme="dark"] .error {
+            background: #442125;
+            color: #fca5a5;
+        }
+
         .success {
             background: #dcfce7;
             color: #166534;
             padding: 14px;
             border-radius: 9px;
             margin-bottom: 20px;
+        }
+
+        html[data-theme="dark"] .success {
+            background: #173b29;
+            color: #86efac;
         }
 
         .actions {
@@ -240,6 +295,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             background: #d6dee8;
         }
 
+        html[data-theme="dark"] .cancel-btn {
+            background: #293746;
+            color: #e2e8f0;
+        }
+
+        html[data-theme="dark"] .cancel-btn:hover {
+            background: #344657;
+        }
+
+        @media (max-width: 600px) {
+
+            .edit-card {
+                padding: 25px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .save-btn,
+            .cancel-btn {
+                justify-content: center;
+            }
+
+        }
+
     </style>
 
 </head>
@@ -254,9 +335,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 SPICA ADMIN DEMO
             </b>
 
-            <a href="logout.php">
-                Logout
-            </a>
+            <div style="display:flex;align-items:center;gap:15px;">
+
+                <button
+                    type="button"
+                    class="admin-theme-button"
+                >
+                    🌙 Dark Mode
+                </button>
+
+                <a href="logout.php">
+                    Logout
+                </a>
+
+            </div>
 
         </div>
 
@@ -367,6 +459,55 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
 
     </div>
+
+    <script>
+
+        const themeButton = document.querySelector(".admin-theme-button");
+
+        function applyTheme(theme) {
+
+            document.documentElement.setAttribute(
+                "data-theme",
+                theme
+            );
+
+            if (theme === "dark") {
+
+                themeButton.textContent = "☀️ Light Mode";
+
+            } else {
+
+                themeButton.textContent = "🌙 Dark Mode";
+
+            }
+
+        }
+
+        const savedTheme =
+            localStorage.getItem("spicaAdminTheme") || "light";
+
+        applyTheme(savedTheme);
+
+        themeButton.addEventListener("click", function () {
+
+            const currentTheme =
+                document.documentElement.getAttribute("data-theme");
+
+            const newTheme =
+                currentTheme === "dark"
+                    ? "light"
+                    : "dark";
+
+            localStorage.setItem(
+                "spicaAdminTheme",
+                newTheme
+            );
+
+            applyTheme(newTheme);
+
+        });
+
+    </script>
 
 </body>
 

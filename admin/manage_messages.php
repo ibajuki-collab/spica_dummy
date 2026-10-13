@@ -53,6 +53,74 @@ $messages = $stmt->fetchAll();
 
     <style>
 
+        :root {
+            --admin-bg: #f4f7fb;
+            --admin-card: #ffffff;
+            --admin-text: #172033;
+            --admin-heading: #0b2a4a;
+            --admin-muted: #64748b;
+            --admin-border: #dbe3ec;
+            --admin-body-card: #f7faff;
+            --admin-body-border: #e5edf6;
+            --admin-footer-border: #edf1f5;
+            --admin-shadow: rgba(15, 23, 42, .06);
+            --admin-hover-border: #b9d8f7;
+        }
+
+        html[data-theme="dark"] {
+            --admin-bg: #101923;
+            --admin-card: #182532;
+            --admin-text: #f1f5f9;
+            --admin-heading: #f1f5f9;
+            --admin-muted: #9aa9ba;
+            --admin-border: #2b3a49;
+            --admin-body-card: #17243a;
+            --admin-body-border: #2b405e;
+            --admin-footer-border: #263958;
+            --admin-shadow: rgba(0, 0, 0, .18);
+            --admin-hover-border: #31557d;
+        }
+
+        body.admin-body {
+            background: var(--admin-bg);
+            color: var(--admin-text);
+            transition: background .2s ease, color .2s ease;
+        }
+
+        .admin-nav {
+            background: #061b2e;
+            padding: 18px 0;
+        }
+
+        .admin-nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-nav b {
+            color: white;
+        }
+
+        .admin-nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .admin-theme-button {
+            border: 1px solid rgba(255, 255, 255, .25);
+            background: rgba(255, 255, 255, .08);
+            color: white;
+            padding: 8px 13px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .admin-theme-button:hover {
+            background: rgba(255, 255, 255, .15);
+        }
+
         .messages-page {
             width: min(1050px, 92%);
             margin: 55px auto 80px;
@@ -68,7 +136,7 @@ $messages = $stmt->fetchAll();
 
         .messages-title {
             margin: 0;
-            color: #0b2a4a;
+            color: var(--admin-heading);
             font-size: 34px;
             font-weight: 800;
             letter-spacing: -0.5px;
@@ -76,7 +144,7 @@ $messages = $stmt->fetchAll();
 
         .messages-subtitle {
             margin: 8px 0 0;
-            color: #64748b;
+            color: var(--admin-muted);
             font-size: 15px;
         }
 
@@ -97,6 +165,15 @@ $messages = $stmt->fetchAll();
         .back-dashboard:hover {
             transform: translateY(-2px);
             background: #dcecff;
+        }
+
+        html[data-theme="dark"] .back-dashboard {
+            background: #132b49;
+            color: #60c7ff;
+        }
+
+        html[data-theme="dark"] .back-dashboard:hover {
+            background: #193856;
         }
 
         .messages-summary {
@@ -122,14 +199,14 @@ $messages = $stmt->fetchAll();
 
         .summary-text strong {
             display: block;
-            color: #0b2a4a;
+            color: var(--admin-heading);
             font-size: 15px;
         }
 
         .summary-text span {
             display: block;
             margin-top: 3px;
-            color: #64748b;
+            color: var(--admin-muted);
             font-size: 13px;
         }
 
@@ -140,18 +217,22 @@ $messages = $stmt->fetchAll();
         }
 
         .message-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: var(--admin-card);
+            border: 1px solid var(--admin-border);
             border-radius: 18px;
             padding: 23px;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, .06);
+            box-shadow: 0 8px 25px var(--admin-shadow);
             transition: .25s ease;
         }
 
         .message-card:hover {
             transform: translateY(-3px);
-            border-color: #b9d8f7;
-            box-shadow: 0 14px 35px rgba(15, 23, 42, .09);
+            border-color: var(--admin-hover-border);
+            box-shadow: 0 14px 35px var(--admin-shadow);
+        }
+
+        html[data-theme="dark"] .message-card:hover {
+            background: #142139;
         }
 
         .message-header {
@@ -188,7 +269,7 @@ $messages = $stmt->fetchAll();
 
         .sender-name {
             margin: 0;
-            color: #0b2a4a;
+            color: var(--admin-heading);
             font-size: 16px;
             font-weight: 800;
         }
@@ -205,28 +286,40 @@ $messages = $stmt->fetchAll();
             text-decoration: underline;
         }
 
+        html[data-theme="dark"] .sender-email {
+            color: #60c7ff;
+        }
+
         .message-date {
             color: #94a3b8;
             font-size: 12px;
             white-space: nowrap;
         }
 
+        html[data-theme="dark"] .message-date {
+            color: #8092aa;
+        }
+
         .message-subject {
             margin: 22px 0 12px;
-            color: #0b2a4a;
+            color: var(--admin-heading);
             font-size: 18px;
             font-weight: 800;
         }
 
         .message-body {
-            background: #f7faff;
-            border: 1px solid #e5edf6;
+            background: var(--admin-body-card);
+            border: 1px solid var(--admin-body-border);
             border-radius: 13px;
             padding: 17px 18px;
             color: #475569;
             font-size: 14px;
             line-height: 1.75;
             white-space: normal;
+        }
+
+        html[data-theme="dark"] .message-body {
+            color: #c7d3e3;
         }
 
         .message-footer {
@@ -236,13 +329,17 @@ $messages = $stmt->fetchAll();
             gap: 15px;
             margin-top: 18px;
             padding-top: 16px;
-            border-top: 1px solid #edf1f5;
+            border-top: 1px solid var(--admin-footer-border);
         }
 
         .message-label {
             color: #94a3b8;
             font-size: 12px;
             font-weight: 700;
+        }
+
+        html[data-theme="dark"] .message-label {
+            color: #8092aa;
         }
 
         .delete-message {
@@ -264,13 +361,22 @@ $messages = $stmt->fetchAll();
             transform: translateY(-1px);
         }
 
+        html[data-theme="dark"] .delete-message {
+            background: #3a1d25;
+            color: #ff8f9c;
+        }
+
+        html[data-theme="dark"] .delete-message:hover {
+            background: #51232d;
+        }
+
         .empty-message {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: var(--admin-card);
+            border: 1px solid var(--admin-border);
             border-radius: 18px;
             padding: 70px 30px;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, .05);
+            box-shadow: 0 8px 25px var(--admin-shadow);
         }
 
         .empty-icon {
@@ -285,128 +391,19 @@ $messages = $stmt->fetchAll();
             font-size: 27px;
         }
 
+        html[data-theme="dark"] .empty-icon {
+            background: #172b46;
+        }
+
         .empty-message h3 {
             margin: 0 0 8px;
-            color: #0b2a4a;
+            color: var(--admin-heading);
         }
 
         .empty-message p {
             margin: 0;
-            color: #64748b;
+            color: var(--admin-muted);
             font-size: 14px;
-        }
-
-        body.dark-mode .messages-title,
-        body.dark .messages-title {
-            color: #f8fafc !important;
-        }
-
-        body.dark-mode .messages-subtitle,
-        body.dark .messages-subtitle {
-            color: #9fb0c7 !important;
-        }
-
-        body.dark-mode .back-dashboard,
-        body.dark .back-dashboard {
-            background: #132b49 !important;
-            color: #60c7ff !important;
-        }
-
-        body.dark-mode .back-dashboard:hover,
-        body.dark .back-dashboard:hover {
-            background: #193856 !important;
-        }
-
-        body.dark-mode .summary-text strong,
-        body.dark .summary-text strong {
-            color: #f1f5f9 !important;
-        }
-
-        body.dark-mode .summary-text span,
-        body.dark .summary-text span {
-            color: #94a8c1 !important;
-        }
-
-        body.dark-mode .message-card,
-        body.dark .message-card {
-            background: #111c31 !important;
-            border-color: #263958 !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,.18);
-        }
-
-        body.dark-mode .message-card:hover,
-        body.dark .message-card:hover {
-            border-color: #31557d !important;
-            background: #142139 !important;
-        }
-
-        body.dark-mode .sender-name,
-        body.dark .sender-name {
-            color: #f1f5f9 !important;
-        }
-
-        body.dark-mode .sender-email,
-        body.dark .sender-email {
-            color: #60c7ff !important;
-        }
-
-        body.dark-mode .message-date,
-        body.dark .message-date {
-            color: #8092aa !important;
-        }
-
-        body.dark-mode .message-subject,
-        body.dark .message-subject {
-            color: #f1f5f9 !important;
-        }
-
-        body.dark-mode .message-body,
-        body.dark .message-body {
-            background: #17243a !important;
-            border-color: #2b405e !important;
-            color: #c7d3e3 !important;
-        }
-
-        body.dark-mode .message-footer,
-        body.dark .message-footer {
-            border-color: #263958 !important;
-        }
-
-        body.dark-mode .message-label,
-        body.dark .message-label {
-            color: #8092aa !important;
-        }
-
-        body.dark-mode .delete-message,
-        body.dark .delete-message {
-            background: #3a1d25 !important;
-            color: #ff8f9c !important;
-        }
-
-        body.dark-mode .delete-message:hover,
-        body.dark .delete-message:hover {
-            background: #51232d !important;
-        }
-
-        body.dark-mode .empty-message,
-        body.dark .empty-message {
-            background: #111c31 !important;
-            border-color: #263958 !important;
-        }
-
-        body.dark-mode .empty-message h3,
-        body.dark .empty-message h3 {
-            color: #f1f5f9 !important;
-        }
-
-        body.dark-mode .empty-message p,
-        body.dark .empty-message p {
-            color: #94a8c1 !important;
-        }
-
-        body.dark-mode .empty-icon,
-        body.dark .empty-icon {
-            background: #172b46 !important;
         }
 
         @media (max-width: 700px) {
@@ -460,12 +457,22 @@ $messages = $stmt->fetchAll();
             SPICA ADMIN DEMO
         </b>
 
-        <a
-            href="logout.php"
-            style="color:#fff"
-        >
-            Logout
-        </a>
+        <div style="display:flex;align-items:center;gap:15px;">
+
+            <button
+                type="button"
+                class="admin-theme-button"
+            >
+                🌙 Dark Mode
+            </button>
+
+            <a
+                href="logout.php"
+            >
+                Logout
+            </a>
+
+        </div>
 
     </div>
 
@@ -637,6 +644,55 @@ $messages = $stmt->fetchAll();
 
 </main>
 
+<script>
+
+    const themeButton = document.querySelector(".admin-theme-button");
+
+    function applyTheme(theme) {
+
+        document.documentElement.setAttribute(
+            "data-theme",
+            theme
+        );
+
+        if (theme === "dark") {
+
+            themeButton.textContent = "☀️ Light Mode";
+
+        } else {
+
+            themeButton.textContent = "🌙 Dark Mode";
+
+        }
+
+    }
+
+    const savedTheme =
+        localStorage.getItem("spicaAdminTheme") || "light";
+
+    applyTheme(savedTheme);
+
+    themeButton.addEventListener("click", function () {
+
+        const currentTheme =
+            document.documentElement.getAttribute("data-theme");
+
+        const newTheme =
+            currentTheme === "dark"
+                ? "light"
+                : "dark";
+
+        localStorage.setItem(
+            "spicaAdminTheme",
+            newTheme
+        );
+
+        applyTheme(newTheme);
+
+    });
+
+</script>
+
 </body>
 
-</html>
+</html> 

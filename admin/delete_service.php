@@ -25,8 +25,6 @@ $stmt->execute([$id]);
 
 $service = $stmt->fetch();
 
-
-// Kalau tidak ditemukan
 if (!$service) {
     header("Location: manage_services.php?error=notfound");
     exit;

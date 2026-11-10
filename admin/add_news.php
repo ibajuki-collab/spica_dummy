@@ -5,7 +5,7 @@ require "../config/auth.php";
 
 require_login();
 
-$error = "";
+$error = ""; 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
